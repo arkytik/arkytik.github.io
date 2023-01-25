@@ -1,0 +1,118 @@
+<html>
+	<head>
+		<title>VK Опросы</title>
+	</head>
+
+	<body>
+		<form method="POST" id="form">
+			<input type="text" placeholder="Введите ваше имя" />
+			<input type="text" placeholder="Введите вашу фамилию" />
+			<div id="school">
+				<p>Оцените школу от 1 до 10</p>
+				<input type="number" value="1" min="1" max="10" />
+			</div>
+			<div id="education">
+				<p>Оцените уровень обучения от 1 до 10</p>
+				<input type="number" value="1" min="1" max="10" />
+			</div>
+			<div id="happy">
+				<p>Оцените ваше удовлетворение от учебы 1 до 10</p>
+				<input type="number" value="1" min="1" max="10" />
+			</div>
+			
+			<button type="button" id="auth">Войти через VK и отправить данные опроса</button>
+		</form>
+	</body>
+
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+		
+		*
+		{
+			font-family: 'Montserrat', sans-serif;
+		}		
+
+		html, body
+		{
+			padding: 0;
+			margin: 0;
+			background-color: #141414;
+		}
+
+		#form, #school, #education, #happy {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-item: center;
+		}
+		
+		#form {
+			gap: 20px;
+
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			
+			transform: translate(-50%, -50%);
+			
+			padding: 16px;
+			background: #222222;
+
+			border-radius: 12px;
+		}
+		
+		p {
+			color: #DBE3E6;
+			font-size: 14px;
+			font-weight: medium;
+		}
+		
+		input
+		{
+			display: block;
+			font-size: 14px;
+			padding: 1vh 1vw;
+			background: #292929;
+			border: 1px solid #555555;
+			border-radius: 8px;
+			color: #DBE3E6;
+		}
+		
+		input:focus {
+			outline: none;
+		}
+		
+		button {
+			border: 0;
+			background-color: #0077FF;
+			padding: 2vh;
+			font-size: 14px;
+			font-weight: bold;
+			color: #DBE3E6;
+			border-radius: 8px;
+			cursor: pointer;
+		}
+	</style>
+
+	<script src="https://vk.com/js/api/openapi.js" type="text/javascript"></script>
+	<script type="text/javascript">
+  		VK.init({
+    			apiId: 51488713
+  		});
+		
+		var btn = document.getElementById('auth');
+		
+		btn.onclick = function () {
+			VK.Auth.getLoginStatus(function(resp) {
+				console.log(resp);				
+
+				if (resp.session) { 
+					console.log(resp.session);
+				} else { 
+					// Нужно просить пользователя предоставить доступ,
+					// и только после его согласия работать с VK API.
+				}
+			}); 
+		};
+	</script>
+</html>
